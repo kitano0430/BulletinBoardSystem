@@ -16,9 +16,15 @@
 <input type="submit" value="記事投稿"><br>
 </form>
 
-<c:forEach var="article" items="${articleList}" ><br>
+
+<c:forEach var="article" items="${articleList}" ><br><hr>
 <c:out value="${article.name}"/>
 <c:out value="${article.content}"/>
+<c:forEach var="comment" items="${article.commentList}"><br>
+<c:out value="${comment.name}"/>
+<c:out value="${comment.content}"/>
+
+</c:forEach>
 </c:forEach>
 
 </body>

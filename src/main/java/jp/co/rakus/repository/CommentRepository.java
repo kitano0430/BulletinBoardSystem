@@ -2,6 +2,7 @@ package jp.co.rakus.repository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -30,13 +31,14 @@ public class CommentRepository {
 		return comment;
 	};
 
+	@Autowired
 	private NamedParameterJdbcTemplate template;
 
 	public List<Comment> findByArticleId(int articleId) {
 
 		String sql = "SELECT id,name,content,article_id FROM comments WHERE article_id=:article_id ORDER BY article_id ;";
      
-		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId",articleId);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("article_id",articleId);
 		List<Comment> commentList = template.query(sql,param, COMMENTROWMAPPER);
 
 		return commentList;
