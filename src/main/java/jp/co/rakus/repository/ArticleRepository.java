@@ -12,6 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.domain.Article;
 
+/**
+ * 記事リポジトリ.
+ * 
+ * @author maiko.kitano
+ *
+ */
 @Repository
 public class ArticleRepository {
 
@@ -27,6 +33,11 @@ public class ArticleRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	/**
+	 * 全件検索するSQL
+	 * 
+	 * @return 記事リスト
+	 */
 	public List<Article> findAll() {
 
 		String sql = "SELECT id,name,content FROM articles ORDER BY id DESC";
@@ -36,11 +47,17 @@ public class ArticleRepository {
 		return articleList;
 	}
 
+	/**
+	 * 記事を投稿するSQL
+	 * 
+	 * @param aritcle 記事
+	 */
 	public void insert(Article aritcle) {
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(aritcle);
-		String insertSql = "INSERT INTO articles(id,name,content)" + "VALUES (:id,:name,:content)";
+		String insertSql = "INSERT INTO articles(name,content)" + "VALUES (:name,:content)";
 		template.update(insertSql, param);
+
 	}
 
 	public void deleteById(Article id) {

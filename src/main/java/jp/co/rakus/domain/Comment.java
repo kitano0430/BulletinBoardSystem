@@ -1,11 +1,23 @@
 package jp.co.rakus.domain;
 
+/**
+ * コメントを表すドメイン.
+ * 
+ * @author maiko.kitano
+ *
+ */
 public class Comment {
 	
+	/**id*/
 	private Integer id;
+	/**名前*/
 	private String name;
+	/**コンテント*/
 	private String content;
+	/**記事ID*/
 	private Integer articleId;
+	
+	
 	public Integer getId() {
 		return id;
 	}

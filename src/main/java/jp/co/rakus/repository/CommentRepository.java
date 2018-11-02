@@ -11,10 +11,15 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.rakus.domain.Comment;
 
-
+/**
+ * コメントリポジトリ.
+ * 
+ * @author maiko.kitano
+ *
+ */
 @Repository
 public class CommentRepository {
-	
+
 	private static final RowMapper<Comment> COMMENTROWMAPPER = (rs, i) -> {
 		Comment comment = new Comment();
 		comment.setId(rs.getInt("id"));
@@ -24,23 +29,24 @@ public class CommentRepository {
 
 		return comment;
 	};
-	
+
 	private NamedParameterJdbcTemplate template;
-	
-	public List<Comment> findByArticleId(int articleId){
-		
-		String sql = "SELECT id,name,content,article_id FROM comments WHERE article_id=:id ORDER BY article_id ;";
-		
-		List<Comment> commentList = template.query(sql, COMMENTROWMAPPER);
-		
+
+	public List<Comment> findByArticleId(int articleId) {
+
+		String sql = "SELECT id,name,content,article_id FROM comments WHERE article_id=:article_id ORDER BY article_id ;";
+     
+		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId",articleId);
+		List<Comment> commentList = template.query(sql,param, COMMENTROWMAPPER);
+
 		return commentList;
 	}
-	
 
 	public void insert(Comment comment) {
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(comment);
-		String insertSql = "INSERT INTO comments(id,name,content,article_id)" + "VALUES (:id,:name,:content,:article_id)";
+		String insertSql = "INSERT INTO comments(id,name,content,article_id)"
+				+ "VALUES (:id,:name,:content,:article_id)";
 		template.update(insertSql, param);
 	}
 
@@ -51,7 +57,5 @@ public class CommentRepository {
 		template.update(deleteSql, param);
 
 	}
-	
-	
 
 }

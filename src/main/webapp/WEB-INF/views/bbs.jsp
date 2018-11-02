@@ -7,10 +7,19 @@
 <title>掲示板</title>
 </head>
 <body>
+
 <h2>掲示板アプリケーション</h2>
-<c:forEach var="article" items="${articleList}" >
+<form action="/Article/addArticle" method="POST">
+投稿者名：<input type="text" name="name"><br>
+投稿内容：<textarea rows="5" cols="30" name="content"></textarea><br>
+
+<input type="submit" value="記事投稿"><br>
+</form>
+
+<c:forEach var="article" items="${articleList}" ><br>
 <c:out value="${article.name}"/>
 <c:out value="${article.content}"/>
 </c:forEach>
+
 </body>
 </html>
