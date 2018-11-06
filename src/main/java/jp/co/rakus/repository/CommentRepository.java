@@ -34,6 +34,12 @@ public class CommentRepository {
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 
+	/**
+	 * 記事idからコメント情報を取得するSQL
+	 * 
+	 * @param articleId　記事id
+	 * @return　コメントリスト
+	 */
 	public List<Comment> findByArticleId(int articleId) {
 
 		String sql = "SELECT id,name,content,article_id FROM comments WHERE article_id=:article_id ORDER BY article_id ;";
@@ -44,18 +50,28 @@ public class CommentRepository {
 		return commentList;
 	}
 
+	/**
+	 * コメント投稿をするSQL
+	 * 
+	 * @param comment コメント
+	 */
 	public void insert(Comment comment) {
 
 		SqlParameterSource param = new BeanPropertySqlParameterSource(comment);
-		String insertSql = "INSERT INTO comments(id,name,content,article_id)"
-				+ "VALUES (:id,:name,:content,:article_id)";
+		String insertSql = "INSERT INTO comments(name,content,article_id)"
+				+ "VALUES (:name,:content,:articleId)";
 		template.update(insertSql, param);
 	}
 
-	public void deleteByArticleId(Comment articleId) {
+	/**
+	 * コメントを削除するSQL
+	 * 
+	 * @param articleId　記事id
+	 */
+	public void deleteByArticleId(int articleId) {
 		String deleteSql = "DELETE FROM comments WHERE article_id =:article_id";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("article_id", articleId);
 		template.update(deleteSql, param);
 
 	}

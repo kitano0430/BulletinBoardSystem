@@ -8,17 +8,20 @@ import java.util.List;
  * @author maiko.kitano
  *
  */
+
 public class Article {
 
 	/** id */
 	private Integer id;
-	/** 名前 */
+	/**　名前 */
 	private String name;
-	/** コンテント */
+	/**　コンテント */
 	private String content;
-	/** コメントリスト */
+	/**　コメントリスト */
 	private List<Comment> commentList;
 
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -51,6 +54,7 @@ public class Article {
 		this.commentList = commentList;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", name=" + name + ", content=" + content + ", commentList=" + commentList

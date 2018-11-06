@@ -1,9 +1,18 @@
 package jp.co.rakus.form;
 
+/**
+ * コメントフォーム.
+ * 
+ * @author maiko.kitano
+ *
+ */
 public class CommentForm {
 	
+	/**記事id*/
 	private String articlelId;
+	/**名前*/
 	private String name;
+	/**コメント*/
 	private String content;
 	
 	public String getArticlelId() {

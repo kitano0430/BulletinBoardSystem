@@ -22,7 +22,9 @@ import jp.co.rakus.domain.Article;
 public class ArticleRepository {
 
 	private static final RowMapper<Article> ARTICLEROWMAPPER = (rs, i) -> {
+
 		Article article = new Article();
+
 		article.setId(rs.getInt("id"));
 		article.setName(rs.getString("name"));
 		article.setContent(rs.getString("content"));
@@ -59,11 +61,17 @@ public class ArticleRepository {
 		template.update(insertSql, param);
 
 	}
+	
 
-	public void deleteById(Article id) {
-		String deleteSql = "DELETE FROM articles WHERE id =:id";
+	/**
+	 * 記事を削除するSQL
+	 * 
+	 * @param articleId 記事id
+	 */
+	public void deleteById(int articleId) {
+		String deleteSql = " DELETE FROM articles WHERE id =:id";
 
-		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id", articleId);
 		template.update(deleteSql, param);
 
 	}
